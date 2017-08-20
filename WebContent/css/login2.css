@@ -1,0 +1,11 @@
+@CHARSET "EUC-KR";
+ 
+ .loginForm{position:relative;width:405px;margin:50px 0 200px 350px;border:1px solid #e1e1e1}
+ .loginForm .box{width:326px}
+ .loginForm .box .iText{width:300px;margin:5px 0px 0px 5px;padding:10px 5px;border:1px solid #e1e1e1}
+ .loginForm .box p{margin-top:1em}
+ .loginForm .box p span,
+ .loginForm .box p input{height:18px;font-size:11px;color:#737373;line-height:18px;vertical-align:middle}
+ .loginForm .loginBtn{display:block;position:absolute;left:315px;top:5px;right:0;width:80px;height:80px;padding:10px;border-radius:5px;
+ font-size:14px;font-weight:700;color:#fff;line-height:60px;text-align:center;text-shadow:1px 1px 1px #004773;background:#333}
+ 
