@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <%@page import="net.member.db.MemberBean"%> 
 <%@page import="net.member.db.MemberDAO"%>
+<%@page import="message.db.MessageDao"%>
 <title>Insert title here</title>
 <% 
 
@@ -15,9 +16,22 @@ if(session.getAttribute("id")!=null){
 }
 MemberDAO dao = new MemberDAO();
 MemberBean mb=dao.getSelect(id);
-	
-%>
 
+MessageDao messageDao = new MessageDao();
+int newMessageCheck =messageDao.messageNewCheck(id);
+%>
+<script type="text/javascript">
+
+
+function message(){
+	var popUrl = "MessageListView.ms";
+
+	var popOption = "top=200 ,left=500,width=610, height=500, resizable=yes, scrollbars=yes, status=no;";    //팝업창 옵션(optoin)
+
+		window.open(popUrl,"",popOption);
+}
+
+</script>
 
 </head>
 <body>
@@ -62,13 +76,25 @@ MemberBean mb=dao.getSelect(id);
 					<a href='#'>일정</a>
 					<ul>
 						<li>
-							<a href='./calender.le'>my일정관리</a>
+							<a href='./AcademicCanlendarView.le'>학사일정</a>
+						</li>
+						<li>
+							<a href='./canlendar.le'>my일정관리</a>
 						</li>
 					</ul>
 				</li>
 				<li class='last'>
 					<a href='logout.jsp'>로그아웃</a>
 				</li>
+				<% if(newMessageCheck>=1){ %>
+				<li style="float:right">
+					<a href="javascript:message()">새로운쪽지</a>
+				</li>
+				<%}else{ %>
+				<li style="float:right">
+					<a href="javascript:message()">쪽지</a>
+				</li>
+				<%} %>
 			</ul>
 		</div>
 		<% }else{ %>
@@ -105,8 +131,13 @@ MemberBean mb=dao.getSelect(id);
 						</li>
 					</ul>
 				</li>
-				<li>
-					<a href='#'>Demos</a>
+				<li class='active sub'>
+					<a href='#'>일정</a>
+					<ul>
+						<li>
+							<a href='./AcademicCanlendarView.le'>학사일정관리</a>
+						</li>
+					</ul>
 				</li>
 				<li class='last'>
 					<a href='logout.jsp'>로그아웃</a>

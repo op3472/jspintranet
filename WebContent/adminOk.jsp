@@ -12,45 +12,7 @@
 %>
 	<div class="wrap">
 		<div class='menu'>
-			<ul>
-				<li>
-					<a href='adminOk.jsp'>Home</a>
-				</li>
-				<li>
-					<a href='#'>About Us</a>
-				</li>
-				<li class='active sub'>
-					<a href='#'>수강관련</a>
-					<ul>
-						<li>
-							<a href='./LectureregList.le'>수강과목등록</a>
-						</li>
-						<li>
-							<a href='./memberList.le'>성적입력</a>
-						</li>
-					</ul>
-				</li>
-				<li class='active sub'>
-					<a href='#'>게시판</a>
-					<ul>
-						<li>
-							<a href='./NoticeList.bo'>공지사항</a>
-						</li>
-						<li>
-							<a href='./BoardList.bo'>자유게시판</a>
-						</li>
-						<li>
-							<a href='./QAList.bo'>Q&A게시판</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href='#'>Demos</a>
-				</li>
-				<li class='last'>
-					<a href='logout.jsp'>로그아웃</a>
-				</li>
-			</ul>
+			 <jsp:include page="/menu.jsp" flush="false"/>
 		</div>
 		<div class="logo">
 		</div>

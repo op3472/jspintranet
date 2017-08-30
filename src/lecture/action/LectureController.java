@@ -142,16 +142,102 @@ public class LectureController extends HttpServlet implements Servlet{
             e.printStackTrace(); 
         }      
     }
-    else if(command.equals("/calender.le")){ 
-        action =new calenderview();
+    else if(command.equals("/canlendar.le")){ 
+        action =new CanlendarView();
         try{ 
             forward = action.execute(request,  response); 
         }catch(Exception e){ 
             e.printStackTrace(); 
         }      
     }
-        
-        
+    else if(command.equals("/CalAddAction.le")){ 
+        action =new CalAddAction();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    }
+    else if(command.equals("/CalDetail.le")){ 
+        action =new CalDetail();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    }
+    else if(command.equals("/CalDelete.le")){ 
+        action =new CalDelete();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    }    
+    else if(command.equals("/CalUpdateForm.le")){ 
+        action =new CalUpdateForm();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    } 
+    else if(command.equals("/CalUpdate.le")){ 
+        action =new CalUpdate();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    } 
+    else if(command.equals("/AcademicCanlendarView.le")){ 
+        action =new AcademicCanlendarView();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    }     
+    else if(command.equals("/AcademicAddAction.le")){ 
+        action =new AcademicAddAction();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    }     
+    else if(command.equals("/AcademicCanlendarDetail.le")){ 
+        action =new AcademicCanlendarDetail();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    }             
+    else if(command.equals("/AcademinCanlendarUpdateForm.le")){ 
+        action =new AcademinCanlendarUpdateForm();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    } 
+    else if(command.equals("/AcademicCanlendarUpdate.le")){ 
+        action =new AcademicCanlendarUpdate();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    }     
+    else if(command.equals("/AcademinCanlendarDelete.le")){ 
+        action =new AcademinCanlendarDelete();
+        try{ 
+            forward = action.execute(request,  response); 
+        }catch(Exception e){ 
+            e.printStackTrace(); 
+        }      
+    }    
         
       if(forward !=null){ 
             if(forward.isRedirect()){ 

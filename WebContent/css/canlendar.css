@@ -1,0 +1,47 @@
+
+	BODY {
+		FONT-SIZE: 9pt; FONT-FAMILY: tahoma
+	}
+	TABLE {
+		FONT-SIZE: 9pt; COLOR: black; FONT-FAMILY: tahoma
+	}
+	A {
+		COLOR: #999999; TEXT-DECORATION: none
+	}
+	A:hover {
+		COLOR: red; TEXT-DECORATION: none
+	}
+	A:visited{
+	COLOR: #999999; TEXT-DECORATION: none
+	}
+	TD.main {
+		FONT-WEIGHT: bold; TEXT-ALIGN: right
+	}
+	TD.uline {
+		FONT-SIZE: 7pt; COLOR: #999999; BACKGROUND-COLOR: #ffffff
+	}
+	TD.r_uline {
+		FONT-SIZE: 7pt; COLOR: #999999; BACKGROUND-COLOR: #f4f4f4
+	}
+	INPUT {
+		MARGIN: -5px
+	}
+	
+	.caldiv{
+		margin:100px 20px 0;
+		float:left;
+	}
+	.caldiv2{
+		margin:130px 0 0;
+		float:left;
+	}
+	
+	.caltable tr{
+		font-size:18px;
+		line-height:30px;
+	}	
+	.caltable td{
+		padding:0px 20px 0 0;
+	}	
+	
+	

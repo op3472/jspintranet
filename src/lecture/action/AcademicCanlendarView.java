@@ -1,6 +1,5 @@
 package lecture.action;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -10,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import lecture.db.LectureDAO;
-
 import net.commons.action.Action;
 import net.commons.action.ActionForward;
+import net.member.db.MemberBean;
+import net.member.db.MemberDAO;
 
-public class calenderview implements Action{ 
+public class AcademicCanlendarView implements Action{ 
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception{ 
     	request.setCharacterEncoding("euc-kr"); //한글처리 
     	  ActionForward forward = new ActionForward(); 
@@ -22,6 +22,8 @@ public class calenderview implements Action{
     	  Calendar calendar = Calendar.getInstance();
     	  String id=(String)session.getAttribute("id"); 
           LectureDAO lecturedao = new LectureDAO();
+          MemberDAO dao = new MemberDAO();
+          MemberBean memberBean = dao.getSelect(id);
     	  String strType = (String)request.getParameter("type");
 
     	  if(strType != null && !strType.equals("")) {
@@ -40,7 +42,7 @@ public class calenderview implements Action{
 
     	  	calendar.set(intYear, intMonth-1, intDay);
     	  }
-
+    	  request.setAttribute("grade",memberBean.getMEMBER_GRADE());
     	  //today 정보
     	  request.setAttribute("today", 		calendar.getTime());
     	  request.setAttribute("curYear", 	calendar.get(Calendar.YEAR));
@@ -64,11 +66,12 @@ public class calenderview implements Action{
     	  calendar.set(Calendar.DATE, 1);
     	  request.setAttribute("firstDayOfNextMonth", calendar.getTime());
     	  Date firstDayOfNextMonth = calendar.getTime();
-    	  List canlist = lecturedao.getcanlender(id,firstDayOfMonth,firstDayOfNextMonth);
-          request.setAttribute("list", canlist);     
+    	  List academicList = lecturedao.getAcademicList(firstDayOfMonth,firstDayOfNextMonth);
+          request.setAttribute("list",academicList);     
             forward.setRedirect(false); 
-            forward.setPath("./lecture/calenderview.jsp"); 
+            forward.setPath("./lecture/AcademicCanlenderView.jsp"); 
             return forward; 
     } 
 
 }
+

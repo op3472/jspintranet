@@ -33,6 +33,14 @@
     <servlet-name>LectureController</servlet-name>
     <url-pattern>*.le</url-pattern>
   </servlet-mapping>
+     <servlet>
+    <servlet-name>MessageController</servlet-name>
+    <servlet-class>message.action.MessageController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MessageController</servlet-name>
+    <url-pattern>*.ms</url-pattern>
+  </servlet-mapping>
   <resource-ref>
     <description>DB Connection</description>
     <res-ref-name>jdbc/test</res-ref-name>

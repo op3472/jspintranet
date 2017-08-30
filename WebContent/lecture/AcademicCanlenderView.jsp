@@ -13,7 +13,7 @@
 <script type="text/javascript">
 function popupOpen(){
 
-	var popUrl = "lecture/caninsert.jsp";
+	var popUrl = "lecture/AcademicCanlendarInsert.jsp";
 
 	var popOption = "top=200 ,left=500,width=500, height=400, resizable=yes, scrollbars=yes, status=no;";    //팝업창 옵션(optoin)
 
@@ -21,7 +21,7 @@ function popupOpen(){
 }
 
 function view(id){
-	var popUrl = "CalDetail.le?num="+id;
+	var popUrl = "AcademicCanlendarDetail.le?num="+id;
 
 	var popOption = "top=200 ,left=500,width=500, height=400, resizable=yes, scrollbars=yes, status=no;";    //팝업창 옵션(optoin)
 
@@ -41,7 +41,9 @@ function view(id){
 		<div class="content">
 		<div class="caldiv">
 <FORM name="theForm">
+<c:if test="${grade==2}">
 <input style="margin:0 55px 0" type="button" class="signUpButton" onclick="popupOpen()" value="일정등록">
+</c:if>
 <%-- base table --%>
 <TABLE cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" width="620" height="665">
 	<TR>

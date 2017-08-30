@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" name="theForm" action="../CalAddAction.le"  onsubmit="return checkValue()">
+<form method="post" name="theForm" action="../AcademicAddAction.le"  onsubmit="return checkValue()">
 <TABLE cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" width="100%" height="100%" >
 <TR>
 	<TD align="center">
@@ -67,4 +67,3 @@
 </TABLE>
 </form>
 </body>
-</html>

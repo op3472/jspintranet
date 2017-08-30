@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import lecture.db.LectureBean;
 import net.board.db.BoardBean;
+import net.member.db.MemberBean;
 import lecture.db.CommentBean;
 public class LectureDAO {
 
@@ -663,6 +664,259 @@ public class LectureDAO {
 		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
 		        } 
 		        return null; 
+		    }
+		    public int checkCanlendar(canlanderBean Bean) { 
+		        String sql ="select * from tb_schedule where schedule_date = ?"; 
+		        int result=-1; 
+		        java.sql.Date scheduleDate = new java.sql.Date(Bean.getScheduleDate().getTime()); 
+		        try{ 
+		            pstmt=con.prepareStatement(sql); 
+		            pstmt.setDate(1,scheduleDate ); 
+		            rs = pstmt.executeQuery(); 
+		             
+		            if(rs.next()){ 
+		               result=1;
+		            }else{ 
+		                result=0;//아이디 존재하지 않음. 
+		            } 
+		        }catch(Exception ex){ 
+		            System.out.println("checkCanlendar 에러: " + ex);             
+		        }finally{ 
+		        	 if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+			         if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		         } 
+		         
+		        return result; 
+		    } 
+		    public void insertCanlendar(canlanderBean Bean){ 
+		        String board_list_sql="insert into tb_schedule(schedule_date,schedule_subject,schedule_content,member_id) values(?,?,?,?) 	";
+		         
+		        java.sql.Date scheduleDate = new java.sql.Date(Bean.getScheduleDate().getTime());
+		        
+	
+		                
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setDate(1,scheduleDate);
+		            pstmt.setString(2,Bean.getScheduleSubject());
+		            pstmt.setString(3,Bean.getScheduleContent());
+		            pstmt.setString(4,Bean.getMemberId()); 
+				       
+		            pstmt.executeUpdate();
+		             
+		           
+		        }catch(Exception ex){ 
+		            System.out.println("insertCanlendar에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
+		    }
+		    public canlanderBean getCalDetail(int num){ 
+		        String board_list_sql="select schedule_id, schedule_date ,schedule_subject, schedule_content from tb_schedule where schedule_id = ?";
+		        canlanderBean bean = new canlanderBean(); 
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setInt(1,num);
+				       
+				       
+		            rs = pstmt.executeQuery(); 
+		             
+		            if(rs.next()){
+		                bean.setScheduleId(rs.getInt("schedule_id"));
+		                bean.setScheduleSubject(rs.getString("schedule_subject"));
+		                bean.setScheduleContent(rs.getString("schedule_content"));
+		                bean.setScheduleDate(rs.getDate("schedule_date")); 
+		            } 
+		             
+		            return bean; 
+		        }catch(Exception ex){ 
+		            System.out.println("getcanlender 에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
+		        return null; 
+		    }
+		    public void calDelete(int num){ 
+		        String board_list_sql="delete from  tb_schedule where schedule_id = ?";
+		         
+		           
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setInt(1,num);
+		           
+		            pstmt.executeUpdate();
+		              
+		           
+		        }catch(Exception ex){ 
+		            System.out.println("insertCanlendar에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
+		    }
+		    public void calUpdate(canlanderBean bean){ 
+		        String board_list_sql="update tb_schedule set schedule_subject = ?, schedule_content = ? where schedule_id = ?";
+		         
+		           
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setString(1,bean.getScheduleSubject());
+		            pstmt.setString(2,bean.getScheduleContent());
+		            pstmt.setInt(3,bean.getScheduleId());
+		           
+		            pstmt.executeUpdate();
+		              
+		           
+		        }catch(Exception ex){ 
+		            System.out.println("calUpdate에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
+		    }
+		    public List getAcademicList(Date first,Date last){ 
+		        String board_list_sql="select schedule_id, DAY(schedule_date) as schedule_date,schedule_subject, schedule_content from ad_schedule where schedule_date >= ? AND	schedule_date < ? ORDER BY schedule_date";
+		         
+		        java.sql.Date sfirst = new java.sql.Date(first.getTime());
+		        java.sql.Date slast = new java.sql.Date(last.getTime()); 
+		        List list = new ArrayList(); 
+		                
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setDate(1,  sfirst);
+		            pstmt.setDate(2, slast);
+		            
+				       
+				       
+		            rs = pstmt.executeQuery(); 
+		             
+		            while(rs.next()){
+		            	canlanderBean bean = new canlanderBean();
+		                bean.setScheduleId(rs.getInt("schedule_id"));
+		                bean.setScheduleSubject(rs.getString("schedule_subject"));
+		                bean.setScheduleContent(rs.getString("schedule_content"));
+		                bean.setDay(rs.getInt("schedule_date"));
+		                list.add(bean); 
+		            } 
+		             
+		            return list; 
+		        }catch(Exception ex){ 
+		            System.out.println(" getAcademicList 에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
+		        return null; 
+		    }
+		    public int checkAcademicCanlendar(canlanderBean Bean) { 
+		        String sql ="select * from ad_schedule where schedule_date = ?"; 
+		        int result=-1; 
+		        java.sql.Date scheduleDate = new java.sql.Date(Bean.getScheduleDate().getTime()); 
+		        try{ 
+		            pstmt=con.prepareStatement(sql); 
+		            pstmt.setDate(1,scheduleDate ); 
+		            rs = pstmt.executeQuery(); 
+		             
+		            if(rs.next()){ 
+		               result=1;
+		            }else{ 
+		                result=0;//아이디 존재하지 않음. 
+		            } 
+		        }catch(Exception ex){ 
+		            System.out.println("checkAcademicCanlendar 에러: " + ex);             
+		        }finally{ 
+		        	 if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+			         if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		         } 
+		         
+		        return result; 
+		    } 
+		    public void insertAcademicCanlendar(canlanderBean Bean){ 
+		        String board_list_sql="insert into ad_schedule(schedule_date,schedule_subject,schedule_content) values(?,?,?) 	";
+		         
+		        java.sql.Date scheduleDate = new java.sql.Date(Bean.getScheduleDate().getTime());
+		        
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setDate(1,scheduleDate);
+		            pstmt.setString(2,Bean.getScheduleSubject());
+		            pstmt.setString(3,Bean.getScheduleContent());
+				       
+		            pstmt.executeUpdate();
+		             
+		           
+		        }catch(Exception ex){ 
+		            System.out.println("insertAcademicCanlendar에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
+		    }
+		    public canlanderBean getAcademicCalendarDetail(int num){ 
+		        String board_list_sql="select schedule_id, schedule_date ,schedule_subject, schedule_content from ad_schedule where schedule_id = ?";
+		        canlanderBean bean = new canlanderBean(); 
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setInt(1,num);
+				       
+				       
+		            rs = pstmt.executeQuery(); 
+		             
+		            if(rs.next()){
+		                bean.setScheduleId(rs.getInt("schedule_id"));
+		                bean.setScheduleSubject(rs.getString("schedule_subject"));
+		                bean.setScheduleContent(rs.getString("schedule_content"));
+		                bean.setScheduleDate(rs.getDate("schedule_date")); 
+		            } 
+		             
+		            return bean; 
+		        }catch(Exception ex){ 
+		            System.out.println("getAcademicCalendarDetail 에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
+		        return null; 
+		    }
+		    public void AcademinCanlendarDelete(int num){ 
+		        String board_list_sql="delete from  ad_schedule where schedule_id = ?";
+		         
+		           
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setInt(1,num);
+		           
+		            pstmt.executeUpdate();
+		              
+		           
+		        }catch(Exception ex){ 
+		            System.out.println("AcademinCanlendarDelete에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
+		    }
+		    public void AcademicCanlendarUpdate(canlanderBean bean){ 
+		        String board_list_sql="update ad_schedule set schedule_subject = ?, schedule_content = ? where schedule_id = ?";
+		         
+		           
+		        try{ 
+		            pstmt = con.prepareStatement(board_list_sql);
+		            pstmt.setString(1,bean.getScheduleSubject());
+		            pstmt.setString(2,bean.getScheduleContent());
+		            pstmt.setInt(3,bean.getScheduleId());
+		           
+		            pstmt.executeUpdate();
+		              
+		           
+		        }catch(Exception ex){ 
+		            System.out.println("AcademicCanlendarUpdate에러 : " + ex); 
+		        }finally{ 
+		            if(rs!=null) try{rs.close();}catch(SQLException ex){} 
+		            if(pstmt!=null) try{pstmt.close();}catch(SQLException ex){} 
+		        } 
 		    }
 		   
 }

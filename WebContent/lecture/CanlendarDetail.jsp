@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<script type="text/javascript" charset="utf-8" src="../js/calinsert.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" name="theForm" action="../CalAddAction.le"  onsubmit="return checkValue()">
 <TABLE cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" width="100%" height="100%" >
 <TR>
 	<TD align="center">
@@ -24,9 +22,7 @@
 						일자
 					</TD>
 					<TD>
-						<INPUT type="text" name="date_Y" class="text_gray" size="4" maxlength="4">년 
-						<INPUT type="text" name="date_M" class="text_gray" size="2" maxlength="2">월  
-						<INPUT type="text" name="date_D" class="text_gray" size="2" maxlength="2">일 
+						${list.scheduleDate}
 					</TD>
 				</TR>
 				<TR bgcolor="#ffffff">
@@ -34,7 +30,7 @@
 						제목
 					</TD>
 					<TD width="380">
-						<INPUT type="text" name="schedule_subject" class="text_gray" size="30" maxlength="50">
+						${list.scheduleSubject}
 					</TD>
 				</TR>
 				<TR bgcolor="#ffffff">
@@ -42,7 +38,7 @@
 						내용
 					</TD>
 					<TD>
-						<TEXTAREA NAME="schedule_content" class="textarea" ROWS="12" COLS="52" WRAP="VIRTUAL"></TEXTAREA>
+						${list.scheduleContent}
 					</TD>
 				</TR>
 			</TABLE>
@@ -53,9 +49,9 @@
 		</TR>
 		<TR>
 			<TD align="center">
-				<input type="image" style="cursor:hand" border=0 src="../images/save.gif"/>
-				<IMG src="../images/close.gif" 	style="cursor:hand" border=0 onclick="window.close()">
-				
+				<a href="CalUpdateForm.le?num=${list.scheduleId}"><img src="images/edit.gif"></a>
+				<a href="CalDelete.le?num=${list.scheduleId}"><img src="images/delete.gif"></a>
+				<IMG src="images/close.gif" 	style="cursor:hand" border=0 onclick="window.close()">
 			</TD>
 		</TR>
 		<TR>
@@ -65,6 +61,6 @@
 	</TD>
 </TR>
 </TABLE>
-</form>
+
 </body>
 </html>
